@@ -1,0 +1,267 @@
+
+    <div class="p-grid p-nogutter p-justify-center p-align-center">
+      <div class="p-xl-5 p-lg-6 p-md-8 p-sm-12">
+        <p-panel header="{{ 'تغییر شماره تلفن همراه در سامانه خدمات امور پدر'}}">
+        <p *ngIf="!FinalTask && !success" class="ui-rtl text-right" dir="rtl">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          برای تغییر شماره همراه ، از شماره فعلی ثبت شده در سیستم استفاده خواهد شد.
+          پس از اطمینان از صحت اطلاعات وارد شده ، مجاز به تغییر شماره تلفن خواهید بود.
+        
+        </p>
+
+         
+    
+    
+    
+    
+    
+        <div class="ui-g ui-rtl" dir="rtl" style="padding: 10px;">
+    
+    
+    
+          <div *ngIf="!IsGetVerificationCode; else templateName">
+            <div  class="ui-g-12 ui-md-12">
+              <!-- ----------------------------------------------------------------- -->
+      
+              <div class="ui-g-12">
+      
+                <div class="ui-g ui-rtl" dir="rtl">
+      
+                  <div class="ui-g-4"></div>
+                  <div class="ui-g-4"><img src="./assets/pedar.jpg" style="width: 100%; height: 100%;"></div>
+                  <div class="ui-g-4"></div>
+      
+                </div>
+      
+              </div>
+      
+      
+              <div class="ui-g-12">
+                  <input (keyup)='checkNationalCode(NationalCode)' [(ngModel)]="NationalCode"  type="tel"
+                    size="30" pInputText placeholder="کد ملی">
+              </div>
+      
+      
+              <div class="ui-g-12">
+                  <input [(ngModel)]="Mobile" type="tel" size="30" pInputText placeholder="تلفن همراه ثبت شده در سیستم">
+              </div>
+
+              <div class="ui-g-12">
+              <p-captcha siteKey="6LfHYf4UAAAAANQnTflkoR2fuSo_efmd2H1WXiFb" (captchaExpired)="handleExpired()" (onResponse)="showResponse($event)"></p-captcha>
+              </div>
+      
+      
+              <div class="ui-g-12">
+                  <button [disabled]="!IsBtnActive || !isClickCapcha || !Mobile" type="button" (click)="getByFilter()" pButton label="ارسال درخواست">
+                  </button>
+                  <p-progressSpinner *ngIf="loading" [style]="{width: '35px', height: '35px'}" class="element-style">
+                  </p-progressSpinner>
+      
+              </div>
+              <div class="ui-g-12">
+                  <p-message style="text-align: justify;" *ngIf="error" severity="error" text="{{error}}"></p-message>
+              </div>
+
+
+
+
+              
+              <!-- ----------------------------------------------------------------- -->
+            </div>
+          </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+          
+          <ng-template #templateName>
+            <ul *ngIf="!FinalTask && !success">
+              
+              <li><i class="fa fa-check-square"  aria-hidden="true"></i>
+                یک پیام حاوی کد محرمانه به شماره تلفن
+                
+                {{Mobile}}
+                ارسال شد.
+              </li>
+              <li><i class="fa fa-check-square" aria-hidden="true"></i>
+                کد درخواست تغییر شماره همراه و شماره همراه جدید را در محل مربوطه وارد کرده و روی گزینه تایید کلیک نمایید.
+              </li>
+              
+              
+             
+              <li><i class="fa fa-check-square" aria-hidden="true"></i>
+                زمان باقیمانده 
+                <span style="font-size: 20px; color: indigo;">
+                {{counter.sec.toString().length===1?'0'+counter.sec:counter.sec}} :
+                {{counter.min.toString().length===1?'0'+counter.min:counter.min}}
+                </span>
+              </li>
+            </ul>
+    
+            <div *ngIf="!success && !FinalTask" class="ui-g-12 ui-md-12">
+              <!-- ----------------------------------------------------------------- -->
+    
+    
+    
+              <div  class="ui-g-12">
+                  <input [(ngModel)]="ConfirmCode" type="number" size="30" pInputText placeholder="کد تایید درخواست">
+              </div>
+
+
+              <div class="ui-g-12">
+                  <input [(ngModel)]="NewMobile" type="tel" size="30" pInputText placeholder="تلفن همراه جدید">
+              </div>
+    
+    
+    
+    
+    
+              <div  class="ui-g-12">
+                  <button [disabled]="loading || !isClickCapcha || !NewMobile" type="button" (click)="sendConfirmCode()" pButton label="تایید">
+                  </button>
+                  <p-progressSpinner *ngIf="loading" [style]="{width: '35px', height: '35px'}" class="element-style">
+                  </p-progressSpinner>
+    
+              </div>
+              <div class="ui-g-12">
+                  <p-message *ngIf="error" style="padding-left: 3px;" severity="error" text="{{error}}"></p-message>
+                  <p-message *ngIf="success" style="padding-left: 3px;" severity="success" text="{{success}}"></p-message>
+              </div>
+              <!-- ----------------------------------------------------------------- -->
+            </div>
+          </ng-template>
+          
+    
+    
+    
+    
+    
+    
+    
+    
+          
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <ul *ngIf="FinalTask && !success" >
+            
+            <li><i class="fa fa-check-square"  aria-hidden="true"></i>
+              یک پیام حاوی کد محرمانه به شماره تلفن همراه جدید وارد شده
+              
+              {{NewMobile}}
+              ارسال شد.
+            </li>
+            <li><i class="fa fa-check-square" aria-hidden="true"></i>
+              کد محرمانه را در محل مربوطه وارد کرده و روی گزینه تایید کلیک نمایید.
+            </li>
+            
+          
+            
+            <li><i class="fa fa-check-square" aria-hidden="true"></i>
+              زمان باقیمانده 
+              <span style="font-size: 20px; color: indigo;">
+              {{counter.sec.toString().length===1?'0'+counter.sec:counter.sec}} :
+              {{counter.min.toString().length===1?'0'+counter.min:counter.min}}
+              </span>
+            </li>
+          </ul>
+
+
+          <div *ngIf="FinalTask" class="ui-g-12 ui-md-12">
+            <!-- ----------------------------------------------------------------- -->
+  
+  
+  
+            <div  class="ui-g-12">
+                <input [(ngModel)]="NewConfirmCode" type="number" size="30" pInputText placeholder="کد تایید">
+            </div>
+
+  
+  
+  
+            <div  class="ui-g-12">
+                <button [disabled]="loading || !isClickCapcha" type="button" (click)="onSubmit()" pButton label="تایید">
+                </button>
+                <p-progressSpinner *ngIf="loading" [style]="{width: '35px', height: '35px'}" class="element-style">
+                </p-progressSpinner>
+  
+            </div>
+            <div class="ui-g-12">
+                <p-message *ngIf="error" style="padding-left: 3px;" severity="error" text="{{error}}"></p-message>
+                
+            </div>
+            <!-- ----------------------------------------------------------------- -->
+          </div>
+
+<p-message *ngIf="success" style="padding-left: 3px;" severity="success" text="{{success}}"></p-message>
+
+
+
+
+
+
+    
+    
+       
+    
+          
+    
+    
+          </div>
+    
+       
+    
+    
+        </p-panel>
+      </div>
+    </div>
+  

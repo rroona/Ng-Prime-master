@@ -1,0 +1,246 @@
+<p-messages [value]="msgs"></p-messages>
+
+
+
+<p-table class="ui-rtl" dir="rtl" #dt [value]="parent" [(selection)]="selectedRows" dataKey="RequestId"
+    styleClass="ui-table-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+    currentPageReportTemplate="نمایش {first} تا {last} از {totalRecords} رکورد"
+    [globalFilterFields]="['PrsnNo','FullName','Mobile','OldMobile']">
+
+
+
+
+    <ng-template pTemplate="caption">
+
+
+
+
+        <!-- <button pButton (click)="AddNewParent()" type="button" icon="pi pi-plus" class="ui-button-success"></button>
+    <button pButton (click)="requery()" type="button" icon="pi pi-refresh" class="ui-button-success"></button> -->
+
+        <div class="ui-g">
+            <div class="ui-g-1 ui-md-1">
+                <!-- <button *ngIf="CanAccess('Can-Insert-Parent-Project')" [routerLink]="['parent']"
+                pTooltip="معرفی پروژه جدید" tooltipPosition="left" pButton type="button" icon="pi pi-plus"
+                class="ui-button-success"></button> -->
+
+                <button (click)="read()" pTooltip="بازیابی اطلاعات" tooltipPosition="left" pButton type="button"
+                    icon="pi pi-refresh" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-8 ui-md-8">
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    placeholder="جستجو" />
+            </div>
+
+            <div class="ui-g-3 ui-md-3">
+
+                <button *ngIf="CanAccess('MobileConfirm_excel')" pTooltip="خروجی اکسل  " (click)="exportExcel()" tooltipPosition="left" type="button" pButton
+                    class="ui-button-success" icon="pi pi-file-excel"></button>
+
+
+
+                <!-- <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"></button>
+            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+            <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button>
+            <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
+         -->
+            </div>
+
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+
+
+            <th style="width: 80px;" pSortableColumn="IsConfirmedDescr">وضعیت  <p-sortIcon field="IsConfirmedDescr">
+                </p-sortIcon>
+            </th>
+
+            <th style="width: 40px;" pTooltip="مرتب سازی با شماره پرسنلی" tooltipPosition="top"
+                pSortableColumn="PrsnNo">پرسنلی<p-sortIcon field="PrsnNo"></p-sortIcon>
+            </th>
+            <th style="width: 100px;" pTooltip="مرتب سازی با نام " tooltipPosition="top" pSortableColumn="FullName">نام
+                و نام خانوادگی<p-sortIcon field="FullName"></p-sortIcon>
+            </th>
+
+            <th style="width: 70px;" pTooltip="مرتب سازی با موبایل " tooltipPosition="top" pSortableColumn="Mobile">تلفن
+                همراه<p-sortIcon field="Mobile"></p-sortIcon>
+            </th>
+
+            <th style="width: 80px;" pTooltip="مرتب سازی با موبایل قدیمی" tooltipPosition="top" pSortableColumn="OldMobile">
+                تلفن همراه قدیمی<p-sortIcon field="OldMobile"></p-sortIcon>
+            </th>
+            <th style="width: 80px;" pTooltip="کد ملی" tooltipPosition="top"
+                pSortableColumn="NationalCode">کد ملی<p-sortIcon field="NationalCode"></p-sortIcon>
+            </th>
+
+            <th style="width: 130px;" pTooltip="مرتب سازی با تاریخ ایجاد" tooltipPosition="top" pSortableColumn="CreateDate">
+                تاریخ ایجاد<p-sortIcon field="CreateDate"></p-sortIcon>
+            </th>
+
+            <th style="width: 40px;" pTooltip="تاریخ احراز هویت" tooltipPosition="top" pSortableColumn="ConfirmDate">
+                تاریخ احراز هویت<p-sortIcon field="ConfirmDate"></p-sortIcon>
+            </th>
+
+
+
+            <th style="width: 60px;" pTooltip="مرتب سازی با تاریخ تغییر" tooltipPosition="top" pSortableColumn="ChangeDate">
+                تاریخ تغییر<p-sortIcon field="ChangeDate"></p-sortIcon>
+            </th>
+
+            <th style="width: 70px;" pTooltip="مرتب سازی با جنسیت" tooltipPosition="top"
+                pSortableColumn="SexCodeName">جنسیت<p-sortIcon field="SexCodeName"></p-sortIcon>
+            </th>
+
+
+         
+        </tr>
+        <tr>
+
+            <th>
+                    <input [(ngModel)]="IsConfirmedDescr" pInputText type="text"
+                        (input)="dt.filter($event.target.value, 'IsConfirmedDescr', 'contains')" placeholder="جستجو "
+                        class="ui-column-filter">
+            </th>
+
+
+            <th>
+                <input [(ngModel)]="PrsnNo" pInputText type="text"
+                    (input)="dt.filter($event.target.value, 'PrsnNo', 'contains')" placeholder="جستجو "
+                    class="ui-column-filter">
+            </th>
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'FullName', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'Mobile', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'NationalCode', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'NationalCode', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'CreateDate', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'ConfirmDate', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'ChangeDate', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+        
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'SexCodeName', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+
+
+
+
+
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-project>
+
+        <tr>
+
+            <td>
+                <span class="ui-column-title">وضعیت : </span>
+                <span pTooltip="{{project.IsConfirmed}}" tooltipPosition="top"
+                    [class]="'customer-badge status-' + project.IsConfirmed"
+                    style="vertical-align: middle; margin-left: .5em ;">{{project.IsConfirmedDescr}}</span>
+            </td>
+
+            <td>
+                <span class="ui-column-title">پرسنلی : </span>
+                <strong pTooltip="مشاهده مدارک ارسالی" tooltipPosition="top"
+                   
+                    style="cursor: pointer; color: blue; text-align: center !important;">{{project.PrsnNo}}</strong>
+            </td>
+
+            <td>
+
+                <span class="ui-column-title">نام پرسنل : </span>
+                <strong>{{project.FullName}}</strong>
+                <img [alt]="project.PrsnNo" src="http://www.ikd.ir/ikdcofiles/prsimg/{{project.PrsnNo}}.jpg"
+                    style="vertical-align: middle ; float: left; width: 30px; border-radius: 30px; height: 30px; margin: 2px; border: #afaeae 1px solid;" />
+
+            </td>
+
+            <td>
+                <span class="ui-column-title">تلفن همراه : </span>
+                {{project.Mobile}}
+            </td>
+            <td>
+                <span class="ui-column-title">تلفن همراه قدیم : </span>
+                {{project.OldMobile}}
+            </td>
+            <td>
+                <span class="ui-column-title">کد ملی : </span>
+
+                <span style="vertical-align: middle; margin-left: .5em">{{project.NationalCode}}</span>
+            </td>
+
+
+            <td >
+                <span class="ui-column-title">تاریخ ایجاد : </span>
+
+                <span class="truncate" style="vertical-align: middle; margin-left: .5em">{{project.CreateDate}}</span>
+            </td>
+
+
+            <td>
+                <span class="ui-column-title">تاریخ احراز هویت : </span>
+
+                <span class="truncate" style="vertical-align: middle; margin-left: .5em">{{project.ConfirmDate}}</span>
+            </td>
+
+
+
+            <td>
+                <span class="ui-column-title">تاریخ تغییر : </span>
+
+                <span style="vertical-align: middle; margin-left: .5em">{{project.ChangeDate}}</span>
+            </td>
+
+
+            <td>
+                <span class="ui-column-title">جنسیت : </span>
+
+                <span style="vertical-align: middle; margin-left: .5em">{{project.SexCodeName}}</span>
+            </td>
+
+
+
+
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8" style="text-align:right">اطلاعاتی یافت نشد</td>
+        </tr>
+    </ng-template>
+</p-table>
+<span *ngIf="selectedRows.length"> مجموع ردیفهای انتخاب شده : {{selectedRows.length}}</span>

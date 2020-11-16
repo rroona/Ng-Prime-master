@@ -1,0 +1,105 @@
+
+
+<div class="p-grid p-nogutter p-justify-center p-align-center">
+    <div class="p-col-10 p-md-5 p-lg-4">
+
+        <p-panel header="معرفی انواع درخواست">
+
+            <div class="p-grid ui-fluid ui-rtl" dir="rtl">
+
+
+                <div class="p-col-12 p-md-12  mt-8">
+                    <div class="ui-inputgroup">
+
+                        <span class="ui-float-label">
+                            <input [(ngModel)]="Title" type="text" pInputText>
+                            <label for="float-input">عنوان درخواست</label>
+                        </span>
+                    </div>
+                </div>
+
+{{Icon}}
+
+                <div class="p-col-12 p-md-12  mt-8">
+                    <div class="ui-inputgroup">
+
+                        <span class="ui-float-label">
+                            <input [(ngModel)]="Icon" type="text" pInputText>
+                            <label for="float-input">آیکون</label>
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="p-col-12 p-md-12  mt-8">
+                    <div class="ui-inputgroup">
+
+                        <span class="ui-float-label">
+                            <!-- <input  type="text" pInputText> -->
+                            <textarea [(ngModel)]="Descr" id="float-input" rows="5" cols="30" pInputTextarea></textarea>
+                            <label for="float-input">توضیحات درخواست</label>
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="p-grid " dir="rtl">
+                <div class="p-col-12 p-md-4">
+                    <div class="ui-inputgroup">
+                        <div class="mt-8">
+                            <button [disabled]="!(Descr)" pButton type="button" (click)="create()" label="ذخیره"
+                                class="ui-button-success"></button>
+                        </div>
+                        <div class="mr-8 mt-8">
+                            <button [routerLink]="['/main/pd']" pButton type="button" label="بازگشت"
+                                class="ui-button-default"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </p-panel>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="p-grid p-nogutter p-justify-center p-align-center">
+<div  class="p-col-10 p-md-6 p-lg-6 mt-10 ui-rtl" dir="rtl">
+
+<p-table  [columns]="cols" [value]="cars1" [resizableColumns]="true">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" pResizableColumn>
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns" class="ui-resizable-column">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+</div>

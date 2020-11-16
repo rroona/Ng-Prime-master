@@ -1,0 +1,110 @@
+<p-messages [(value)]="msgs"></p-messages>
+
+
+
+
+<div class="ui-g ui-rtl" dir="rtl" >
+
+  <div class="ui-g-5"></div>
+  <div class="ui-g-2 "><img src="./assets/pedar.jpg" style="width: 100%; height: 100%;" ></div>
+  <div class="ui-g-5"></div>
+
+
+</div>
+
+
+
+<p-panel header="خدمات غیر حضوری امور پدر">
+
+
+<div  class="ui-g dashboard-card ui-rtl" dir="rtl">
+
+
+
+  <div *ngFor="let item of attachmentType" class="ui-g-6 ui-md-3 text-center">
+    <p-card styleClass="overview-box-{{item.Color}}">
+      <i class="{{item.Icon}}"></i><h3><span (click)="gotoattachmentInsert(item.RequestTypeId)"  routerLinkActive="router-link-active"  style="cursor: pointer;">{{item.Title}}</span></h3>
+    </p-card>
+  </div>
+  <!-- <div class="ui-g-6 ui-md-3 text-center">
+    <p-card styleClass="overview-box-3">
+      <i class="fa fa-heartbeat fa-2x"></i><h3><span (click)="gotoattachmentInsert(3)" pTooltip="بزودی" style="cursor: progress;">درخواست مرخصی مددکاری</span></h3>
+    </p-card>
+  </div>
+  <div class="ui-g-6 ui-md-3 text-center">
+    <p-card styleClass="overview-box-2">
+      <i class="fa fa-credit-card fa-2x"></i><h3><span (click)="gotoattachmentInsert(2)" pTooltip="بزودی" style="cursor: progress;">درخواســت وام ضــروری</span></h3>
+    </p-card>
+  </div>
+
+  <div class="ui-g-6 ui-md-3 text-center">
+    <p-card styleClass="overview-box-4">
+      <i class="fa fa-home fa-2x"></i><h3><span (click)="gotoattachmentInsert(4)" pTooltip="بزودی" style="cursor: progress;">درخواســت وام مسـکن</span></h3>
+    </p-card>
+  </div>
+
+
+  <div class="ui-g-6 ui-md-3 text-center">
+    <p-card styleClass="overview-box-4">
+      <i class="fa fa-user-plus fa-2x"></i><i class="fa fa-user-times fa-2x" style="color: red;"></i><h3><span (click)="gotoattachmentInsert(4)" pTooltip="بزودی" style="cursor: progress;">حذف و اضافه بیمه تکمیلی درمان</span></h3>
+    </p-card>
+  </div> -->
+</div>
+</p-panel>
+
+
+
+
+
+<div class="mt-10"></div>
+
+<p-panel  header="سیستمهای عملیاتی امور پدر">
+
+
+  <div class="ui-g dashboard-card ui-rtl" dir="rtl">
+    <div class="ui-g-6 ui-md-3 text-center">
+      <p-card styleClass="overview-box-1">
+        <i class="fa fa-bus fa-2x"></i><h3><span (click)="gotoattachmentInsert(2)"  routerLinkActive="router-link-active"  style="cursor: pointer;">سفرهای زیارتی-سیاحتی</span></h3>
+      </p-card>
+    </div>
+    <div class="ui-g-6 ui-md-3 text-center">
+      <p-card styleClass="overview-box-2">
+        <i class="fa fa-stethoscope fa-2x"></i><h3><span (click)="gotoattachmentInsert(2)" pTooltip="بزودی" style="cursor: progress;">کمیسیون پزشکی</span></h3>
+      </p-card>
+    </div>
+   
+  
+    <div class="ui-g-6 ui-md-3 text-center">
+      <p-card styleClass="overview-box-3">
+        <i class="fa fa-user-circle fa-2x"></i><h3><span (click)="gotoattachmentInsert(3)" pTooltip="بزودی" style="cursor: progress;">خــدمـات امــور پــدر</span></h3>
+      </p-card>
+    </div> <div class="ui-g-6 ui-md-3 text-center">
+      <p-card styleClass="overview-box-4">
+        <i class="fa fa-gift fa-2x"></i><h3><span (click)="gotoattachmentInsert(4)" pTooltip="بزودی" style="cursor: progress;">هــــدایـای غــیـر نـقـدی</span></h3>
+      </p-card>
+    </div>
+  </div>
+  </p-panel>
+
+
+
+
+
+
+
+
+ 
+
+<!-- <div class="ui-g">
+  <div class="ui-g-12 ui-md-6">
+    <p-card>
+      <p-chart type="doughnut" [data]="doughnutChartData" [height]="200" [width]="200"></p-chart>
+    </p-card>
+  </div>
+  <div class="ui-g-12 ui-md-6">
+    <p-card>
+      <p-chart type="bar" [data]="barChartData" [height]="200" [width]="200"></p-chart>
+    </p-card>
+  </div>
+</div> -->
+

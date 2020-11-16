@@ -1,0 +1,70 @@
+<div class="login-panel">
+  <div class="language-menu">
+    <!-- <select (change)="onLanguageChange($event)">
+      <option value="en" [selected]="locale == 'en'">English</option>
+      <option value="hi" [selected]="locale == 'hi'">Hindi</option>
+    </select> -->
+  </div>
+  <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+    <div class="p-xl-3 p-lg-6 p-md-8 p-sm-10">
+      <p-panel header="{{ 'ورود به سیستم پیشگیری درمان و رفاه'}}">
+        <div class="p-col-12">
+          <!-- <p-messages [(value)]="msgs"></p-messages> -->
+        </div>
+        <div class="p-grid p-justify-center p-align-center">
+          <!-- <div class="p-xl-6 p-lg-6 p-md-8 p-sm-10">
+            <img src="assets/images/logo-large.png" class="login-logo">
+          </div> -->
+          <div class="p-col-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+              <input id="input-username" type="tel" size="30" pInputText [(ngModel)]="userName"
+                placeholder="نام کاربری">
+            </div>
+          </div>
+          <div class="p-col-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+              <input id="input-password" type="password" size="30" pInputText [(ngModel)]="password"
+                placeholder="کلمه عبور">
+            </div>
+          </div>
+
+
+
+
+
+          <!-- <div class="p-col-12 text-center">
+            <a>Forgot Password?</a>
+          </div> -->
+        </div>
+        <p-footer>
+          <div class="p-grid">
+
+            <!-- <div class="p-col-6">
+            <button pButton type="button" label="بازیابی کلمه عبور" class="ui-button-raised"
+              [routerLink]="['/recoverpass']"></button>
+          </div> -->
+
+
+
+            <div class="p-col-12">
+              <button [disabled]="!(password && userName)" pButton type="button" label="{{ 'ورود به سیستم' }}"
+                class="ui-button-raised" (click)="onClickLogin()"></button>
+            </div>
+          </div>
+
+          <div style="text-align: right;" class="mt-10"><a [routerLink]="['/recoverpass']"
+              routerLinkActive="router-link-active">بازیابی کلمه عبور</a></div>
+        </p-footer>
+      </p-panel>
+      <!-- <div class="extra-page-footer">
+        <div>2019@ Nilav Patel. Made with <span class="color-red">❤</span>.</div>
+        <div>Version : {{version}}</div>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+{{userName}}

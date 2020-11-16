@@ -1,0 +1,238 @@
+:host ::ng-deep .ui-table-customers {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    
+
+    .ui-table-wrapper{
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+    
+    .ui-table-tbody > tr > td .ui-column-title {
+        display: none;
+    }
+
+    .ui-button{
+margin: 1px;
+    }
+    
+
+    .ui-table-tbody > tr > td {
+        padding: 3px;
+        text-align: center;
+        }
+
+    .ui-button-icon-only {
+font-size: 10px;
+height: 23px;
+    }
+    .ui-inputtext{
+        font-family: 'Vazir-Bold',tahoma;
+        font-size: 0.75rem;
+    }
+    .ui-dropdown-label{
+        font-size: 0.85rem;
+    }
+
+    .badge{
+        float: right;
+    }
+
+  
+}
+
+/* Responsive */
+@media screen and (max-width: 40em) {
+    :host ::ng-deep .ui-table {
+        &.ui-table-customers {
+            .ui-table-thead > tr > th,
+            .ui-table-tfoot > tr > td {
+                display: none !important;
+            }
+
+            
+            .ui-table-tbody > tr > td {
+                text-align: right !important;
+                display: block;
+                border: 0 none !important;
+                width: 100% !important;
+                float: left;
+                clear: left;
+                border: 0 none;
+
+                .ui-column-title {
+                    padding: .4em;
+                    min-width: 30%;
+                    display: inline-block;
+                    margin: -.4em 1em -.4em -.4em;
+                    font-weight: bold;
+
+                   
+                }
+            
+                .badge{
+                    float: left;
+                }
+
+            }
+            
+        }
+    }
+}
+
+
+
+
+.custpm-Padding{
+    padding-bottom: 15px;
+}
+
+
+
+
+
+
+
+
+label{
+    right: 10px;
+ }
+ 
+
+
+
+
+ .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.content {
+    cursor: pointer;
+    width:100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+ 
+td ,tr{
+    text-align: right !important;
+}
+
+
+
+
+.w-100{
+    width: 100% !important;
+}
+
+
+
+
+
+.alert {
+    padding: 5px;
+    background-color: #2196F3;
+    color: white;
+    text-align: right;
+    border-radius: 3px;
+    margin: 2px;
+  }
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

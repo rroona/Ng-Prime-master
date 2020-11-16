@@ -1,0 +1,264 @@
+<div class="login-panel">
+<div class="p-grid p-nogutter p-justify-center p-align-center">
+  <div class="p-xl-5 p-lg-6 p-md-8 p-sm-12">
+    <p-panel header="{{ 'ثبت شماره تلفن و احراز هویت در سیستم'}}">
+    <p class="ui-rtl text-right" dir="rtl">
+      <i class="fa fa-check" aria-hidden="true"></i>
+      همکار گرامی لطفا قبل از استفاده از امکانات سیستم نسبت به ثبت
+      شماره تلفن همراه خود اقدام نمایید</p>
+
+
+
+
+
+    <div class="ui-g ui-rtl" dir="rtl" style="padding: 10px;">
+
+
+
+
+
+      <div *ngIf="!IsGetVerificationCode; else templateName">
+        <div  class="ui-g-12 ui-md-12">
+          <!-- ----------------------------------------------------------------- -->
+  
+          <div class="ui-g-12">
+  
+            <div class="ui-g ui-rtl" dir="rtl">
+  
+              <div class="ui-g-4"></div>
+              <div class="ui-g-4"><img src="./assets/pedar.jpg" style="width: 100%; height: 100%;"></div>
+              <div class="ui-g-4"></div>
+  
+            </div>
+  
+          </div>
+  
+  
+  
+          <div class="ui-g-12">
+            <!-- <span class="ui-float-label"> -->
+              <input [(ngModel)]="PrsnNo" type="tel" size="30" pInputText placeholder="شماره پرسنلی">
+              <!-- <label for="float-input">شماره پرسنلی</label> -->
+            <!-- </span> -->
+  
+            <!-- <div *ngIf="submitted && f.PrsnNo.errors" style="padding-right: 30px;">
+                <p-message *ngIf="f.PrsnNo.errors.required" severity="error" text="شماره پرسنلی وارد نشده است">
+                </p-message>
+              </div> -->
+          </div>
+  
+          <div class="ui-g-12">
+            <!-- <span class="ui-float-label"> -->
+              <input (keyup)='checkNationalCode()' [(ngModel)]="NationalCode"  type="tel"
+                size="30" pInputText placeholder="کد ملی">
+              <!-- <label for="float-input">کد ملی</label> -->
+            <!-- </span> -->
+  
+            <!-- <div *ngIf="submitted && f.NationalCode.errors" style="padding-right: 30px;">
+                <p-message *ngIf="f.NationalCode.errors.required" style="padding-left: 3px;" severity="error"
+                  text="کد ملی وارد نشده است"></p-message>
+                <p-message *ngIf="f.NationalCode.errors.minlength" style="padding-left: 3px;" severity="error"
+                  text="کد ملی میبایست 10 رقم باشد">
+                </p-message>
+                <p-message *ngIf="f.NationalCode.errors.maxlength" style="padding-left: 3px;" severity="error"
+                  text="کد ملی میبایست 10 رقم باشد">
+                </p-message>
+                <p-message *ngIf="f.NationalCode.errors.pattern" style="padding-left: 3px;" severity="error"
+                  text="الگوی کد ملی صحیح نمی باشد">
+                </p-message>
+                <p-message *ngIf="!f.NationalCode.valid" style="padding-left: 3px;" severity="error"
+                  text="کد ملی صحیح نمی باشد"></p-message>
+              </div> -->
+          </div>
+  
+  
+  
+          <div class="ui-g-12">
+            <!-- <span class="ui-float-label"> -->
+              <input [(ngModel)]="Mobile" type="tel" size="30" pInputText placeholder="تلفن همراه">
+              <!-- <label for="float-input">تلفن همراه</label> -->
+            <!-- </span> -->
+  
+            <!-- <div *ngIf="submitted && f.Mobile.errors" style="padding-right: 30px;">
+                <p-message *ngIf="f.Mobile.errors.required" style="padding-left: 3px;" severity="error"
+                  text="تلفن همراه وارد نشده است"></p-message>
+                <p-message *ngIf="f.Mobile.errors.minlength" style="padding-left: 3px;" severity="error"
+                  text="شماره تلفن همراه میبایست 11 رقم باشد"></p-message>
+                <p-message *ngIf="f.Mobile.errors.maxlength" style="padding-left: 3px;" severity="error"
+                  text="شماره تلفن همراه میبایست 11 رقم باشد"></p-message>
+                <p-message *ngIf="f.Mobile.errors.pattern" style="padding-left: 3px;" severity="error"
+                  text="شماره تلفن همراه صحیح نمیباشد"></p-message>
+              </div> -->
+          </div>
+  
+  
+  
+          <div class="ui-g-12">
+            <!-- <span class="ui-float-label"> -->
+              <button [disabled]="loading" type="button" (click)="create()" pButton label="ارسال">
+              </button>
+              <p-progressSpinner *ngIf="loading" [style]="{width: '35px', height: '35px'}" class="element-style">
+              </p-progressSpinner>
+            <!-- </span> -->
+  
+          </div>
+          <div class="ui-g-12">
+            <!-- <span class="ui-float-label"> -->
+              <p-message style="text-align: justify;" *ngIf="error" severity="error" text="{{error}}"></p-message>
+            <!-- </span> -->
+          </div>
+          <!-- ----------------------------------------------------------------- -->
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <ng-template #templateName>
+        <ul *ngIf="!success">
+          <li><i class="fa fa-check-square"  aria-hidden="true"></i>
+            یک پیام حاوی کد محرمانه به شماره تلفن
+            
+            {{Mobile}}
+            ارسال خواهد شد.
+          </li>
+          <li><i class="fa fa-check-square" aria-hidden="true"></i>
+            کد محرمانه را در محل مربوطه وارد کرده و روی گزینه تایید کلیک نمایید.
+          </li>
+          
+          <li><i class="fa fa-check-square" aria-hidden="true"></i>
+            درصورت بستن یا بارگزاری مجدد این صفحه ، فرایند احراز هویت از ابتدا آغاز خواهد گردید.</li>
+          <li><i class="fa fa-check-square" aria-hidden="true"></i>
+            درصورتی که در زمان تعیین شده پیامک حاوی کد محرمانه را دریافت نکردید،ابتدا از صحت شماره تلفن وارد شده اطمینان حاصل نمایید سپس مجددا اطلاعات را وارد نمایید
+          </li>
+          <li><i class="fa fa-check-square" aria-hidden="true"></i>
+            زمان باقیمانده تا ورود کد امنیتی
+            <span style="font-size: 20px; color: indigo;">
+            {{counter.sec.toString().length===1?'0'+counter.sec:counter.sec}} :
+            {{counter.min.toString().length===1?'0'+counter.min:counter.min}}
+            </span>
+          </li>
+          <!-- <li *ngIf="resendSms" style="list-style: none;"> <button icon="pi pi-comment" style="width: 30%;"
+              class="ui-button-success" pButton (click)='rsendSms()' label="{{resendSms}}"></button></li> -->
+        </ul>
+
+
+
+
+        <!-- <input type="hidden" formControlName="PrsnNo" class="form-control" /> -->
+
+        <div class="ui-g-12 ui-md-12">
+          <!-- ----------------------------------------------------------------- -->
+
+
+
+          <div *ngIf="!success" class="ui-g-12">
+            <!-- <span class="ui-float-label"> -->
+              <input [(ngModel)]="ConfirmCode" type="number" size="30" pInputText placeholder="کد محرمانه">
+              <!-- <label for="float-input">کد محرمانه</label> -->
+            <!-- </span> -->
+
+            <!-- <div *ngIf="submitted && f.ConfirmCode.errors" >
+              <p-message *ngIf="f.ConfirmCode.errors.required" severity="error" text="کد محرمانه وارد نشده است"></p-message>
+            </div> -->
+          </div>
+
+
+
+
+
+          <div *ngIf="!success" class="ui-g-12">
+            <!-- <span class="ui-float-label"> -->
+              <button [disabled]="loading" type="button" (click)="onSubmit()" pButton label="تایید">
+              </button>
+              <p-progressSpinner *ngIf="loading" [style]="{width: '35px', height: '35px'}" class="element-style">
+              </p-progressSpinner>
+            <!-- </span> -->
+
+          </div>
+          <div class="ui-g-12">
+            <!-- <span class="ui-float-label"> -->
+              <p-message *ngIf="error" style="padding-left: 3px;" severity="error" text="{{error}}"></p-message>
+
+              <p-message *ngIf="success" style="padding-left: 3px;" severity="success" text="{{success}}"></p-message>
+            <!-- </span> -->
+          </div>
+          <!-- ----------------------------------------------------------------- -->
+        </div>
+      </ng-template>
+      
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+   
+
+      
+
+
+      </div>
+
+   
+
+
+    </p-panel>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

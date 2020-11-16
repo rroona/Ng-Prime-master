@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<head>
+
+
+  <!--  Push Notification -->
+    <script type="text/javascript">
+        (function(){
+                var now = new Date();
+                var version = now.getFullYear().toString() + "0" + now.getMonth() + "0" + now.getDate() +
+                    "0" + now.getHours();
+                var head = document.getElementsByTagName("head")[0];
+                var link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.href = "https://app.najva.com/static/css/local-messaging.css" + "?v=" + version;
+                head.appendChild(link);
+                var script = document.createElement("script");
+                script.type = "text/javascript";
+                script.async = true;
+                script.src = "https://app.najva.com/static/js/scripts/ikd-website-17913-11c30d90-6296-41e5-a9d0-0fe8dd382dc9.js" + "?v=" + version;
+                head.appendChild(script);
+                })()
+    </script>
+    <!-- END PUSH NOTIFICATION -->
+  
+  
+  <meta charset="utf-8">
+  <title>خدمات غیر حضوری امور پدر شرکت ایران خودرو دیزل</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="icon" type="image/x-icon" href="/assets/images/logo-small.png"> -->
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+<script src="https://www.google.com/recaptcha/api.js?render=explicit&onLoad=initRecaptcha" async defer></script>
+</html>

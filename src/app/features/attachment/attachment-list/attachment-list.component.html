@@ -1,0 +1,515 @@
+
+<p-table class="ui-rtl" dir="rtl" #dt [value]="parent" [(selection)]="selectedRows" dataKey="RequestId"
+
+[totalRecords]="totalRecords"
+[lazy]="true" 
+(onLazyLoad)="loadCarsLazy($event)"
+
+
+
+    styleClass="ui-table-customers" [rowHover]="false"  [rows]="10" [showCurrentPageReport]="true" 
+    [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+    currentPageReportTemplate="نمایش {first} تا {last} از {totalRecords} رکورد"
+    [globalFilterFields]="['PrsnNo','RequestTypeTitle','StatusDescr']">
+
+
+
+    <ng-template pTemplate="caption">
+
+
+
+
+        <!-- <button pButton (click)="AddNewParent()" type="button" icon="pi pi-plus" class="ui-button-success"></button>
+    <button pButton (click)="requery()" type="button" icon="pi pi-refresh" class="ui-button-success"></button> -->
+
+        <div class="ui-g">
+            <div class="ui-g-1 ui-md-1">
+                <!-- <button *ngIf="CanAccess('Can-Insert-Parent-Project')" [routerLink]="['parent']"
+                pTooltip="معرفی پروژه جدید" tooltipPosition="left" pButton type="button" icon="pi pi-plus"
+                class="ui-button-success"></button> -->
+
+                <button (click)="read()" pTooltip="بازیابی اطلاعات" tooltipPosition="left" pButton type="button"
+                    icon="pi pi-refresh" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-8 ui-md-8">
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    placeholder="جستجو" />
+            </div>
+
+            <div class="ui-g-3 ui-md-3">
+
+                <button *ngIf="CanAccess('Request_excel')"  pTooltip="خروجی اکسل  " (click)="exportExcel()" tooltipPosition="left"
+                    type="button" pButton class="ui-button-success" icon="pi pi-file-excel"></button>
+
+
+
+                <!-- <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"></button>
+            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+            <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button>
+            <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
+         -->
+            </div>
+
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <!-- <th></th> -->
+            <th  *ngIf="CanAccess('Request_View_Log')" style="width: 40px;" pSortableColumn="ApproveUser">لاگ<p-sortIcon field="ApproveUser"></p-sortIcon></th>
+           
+            <th style="width: 80px;" pSortableColumn="StatusId">وضعیت درخواست <p-sortIcon field="StatusDescr"></p-sortIcon></th>
+
+            <th style="width: 40px;" pTooltip="مرتب سازی با شماره پرسنلی" tooltipPosition="top"
+                pSortableColumn="PrsnNo">پرسنلی<p-sortIcon field="PrsnNo"></p-sortIcon>
+            </th>
+            <th style="width: 100px;" pTooltip="مرتب سازی با نام " tooltipPosition="top" pSortableColumn="FullName">نام
+                و نام خانوادگی<p-sortIcon field="FullName"></p-sortIcon>
+            </th>
+
+            <th style="width: 70px;" pTooltip="مرتب سازی با موبایل " tooltipPosition="top" pSortableColumn="Mobile">تلفن همراه<p-sortIcon field="FullName"></p-sortIcon>
+            </th>
+
+            <th style="width: 50px;" pTooltip="مرتب سازی با نسبت" tooltipPosition="top" pSortableColumn="RelateName">
+                نسبت<p-sortIcon field="RelateName"></p-sortIcon>
+            </th>
+            <th style="width: 100px;" pTooltip="مرتب سازی با نوع درخواست" tooltipPosition="top"
+                pSortableColumn="RequestTypeTitle">نوع درخواست<p-sortIcon field="RequestTypeTitle"></p-sortIcon>
+            </th>
+            <!-- <th style="width: 60px;" pTooltip="مرتب سازی با وضعیت تایید" tooltipPosition="top"
+                pSortableColumn="IsConfirmDescr">وضعیت تایید<p-sortIcon field="IsConfirmDescr"></p-sortIcon>
+            </th>
+
+            <th style="width: 70px;" pTooltip="مرتب سازی با وضعیت درخواست" tooltipPosition="top"
+                pSortableColumn="StatusDescr">وضعیت درخواست<p-sortIcon field="StatusDescr"></p-sortIcon>
+            </th> -->
+
+            <th style="width: 130px;" pTooltip="مرتب سازی با توضیحات" tooltipPosition="top" pSortableColumn="Descr">
+                توضیحات<p-sortIcon field="Descr"></p-sortIcon>
+            </th>
+
+            <th style="width: 40px;" pTooltip="مرتب سازی مقطع" tooltipPosition="top" pSortableColumn="v1">
+                مقطع<p-sortIcon field="v1"></p-sortIcon>
+            </th>
+
+            
+
+            <th style="width: 60px;" pTooltip="مرتب سازی با نسب" tooltipPosition="top" pSortableColumn="FamilyFullName">
+                نسب<p-sortIcon field="FamilyFullName"></p-sortIcon>
+            </th>
+
+            <th style="width: 70px;" pTooltip="مرتب سازی با تاریخ ارسال" tooltipPosition="top"
+                pSortableColumn="RequestDate">تاریخ ارسال<p-sortIcon field="RequestDate"></p-sortIcon>
+            </th>
+
+
+            <th style="width: 65px;">عملیات</th>
+        </tr>
+        <tr>
+            <!-- <th>
+            <p-tableHeaderCheckbox class="vis"></p-tableHeaderCheckbox>
+        </th> -->
+
+
+        <th  *ngIf="CanAccess('Request_View_Log')">
+        
+
+                <input [(ngModel)]="ApproveUser" pInputText type="text" (input)="dt.filter($event.target.value, 'ApproveUser', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+ <th>
+            <p-dropdown [(ngModel)]="StatusId"  [options]="statuses" (onChange)="dt.filter($event.value, 'StatusId', 'equals')" styleClass="p-column-filter" placeholder="انتخاب کنید" [showClear]="true">
+                <ng-template  let-option pTemplate="item">
+                    <span class="ui-rtl" dir="rtl" [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+            </p-dropdown>
+        </th>
+
+
+            <th>
+                <input [(ngModel)]="PrsnNo" pInputText type="text" (input)="dt.filter($event.target.value, 'PrsnNo', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'FullName', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'Mobile', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'RelateName', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+            <th>
+                <input pInputText type="text"
+                    (input)="dt.filter($event.target.value, 'RequestTypeTitle', 'contains')" placeholder="جستجو "
+                    class="ui-column-filter">
+            </th>
+
+            <!-- <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'IsConfirmDescr', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th> -->
+
+            <!-- <th>
+           
+
+                <p-dropdown  [options]="IsUsedstatuses" (onChange)="dt.filter($event.value, 'StartDate', 'equals')" styleClass="ui-column-filter" placeholder="انتخاب کنید" [showClear]="true">
+                    <ng-template let-option pTemplate="item">
+                        <span  [class]="'customer-badge status-' + option.class">&#123;&#123;option.label&#125;&#125;</span>
+                    </ng-template>
+                </p-dropdown>
+
+
+
+        </th> -->
+
+            <!-- <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'StatusDescr', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th> -->
+
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'Descr', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'v1', 'contains')"
+                    placeholder="جستجو " class="ui-column-filter">
+            </th>
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'FamilyFullName', 'contains')"
+                    placeholder="جستجو" class="ui-column-filter">
+            </th>
+
+
+            <th>
+                <input pInputText type="text" (input)="dt.filter($event.target.value, 'RequestDate', 'contains')"
+                    placeholder="جستجو" class="ui-column-filter">
+            </th>
+
+
+            <th></th>
+
+
+
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-project>
+
+        <tr>
+
+
+            <td *ngIf="CanAccess('Request_View_Log')">
+                <span class="ui-column-title">کاربر تایید : </span>
+                {{project.ApproveUser}}
+            </td>
+
+ <td >
+                <span class="ui-column-title">وضعیت درخواست : </span>
+                <span  pTooltip="{{project.NonApprovalReason}}" tooltipPosition="top" [class]="'customer-badge status-' + project.StatusId"  style="vertical-align: middle; margin-left: .5em ;">{{project.StatusDescr}}</span>
+
+            </td>
+
+
+
+            <!-- <td *ngIf="CanAccess('Can-Insert-Child-Project')">
+            <button  pTooltip="معرفی فعالیت جدید برای  {{project.PrsnNo}}" tooltipPosition="left"
+                type="button" pButton [routerLink]="['child']" icon="pi pi-plus"></button>
+
+        </td> -->
+
+            <td>
+                <span class="ui-column-title">پرسنلی : </span>
+
+                <strong pTooltip="مشاهده مدارک ارسالی" tooltipPosition="top"
+                    (click)="setCurrentRow(project);getRequestItems(project); Imagepanel.toggle($event)"
+                    style="cursor: pointer; color: blue; text-align: center !important;">{{project.PrsnNo}}</strong>
+            </td>
+
+            <td>
+               
+                <span class="ui-column-title">نام پرسنل : </span>
+                <strong >{{project.FullName}}</strong>
+                <img [alt]="project.PrsnNo" src="http://www.ikd.ir/ikdcofiles/prsimg/{{project.PrsnNo}}.jpg"
+                style="vertical-align: middle ; float: left; width: 30px; border-radius: 30px; height: 30px; margin: 2px; border: #afaeae 1px solid;" />
+
+            </td>
+
+            <td>
+                <span class="ui-column-title">تلفن همراه : </span>
+                {{project.Mobile}}
+            </td>
+            <td>
+                <span class="ui-column-title">نسبت : </span>
+                {{project.RelateName}}
+            </td>
+            <td>
+                <span class="ui-column-title">نوع درخواست : </span>
+
+                <span style="vertical-align: middle; margin-left: .5em">{{project.RequestTypeTitle}}</span>
+            </td>
+            <!-- <td>
+               
+                <span class="ui-column-title">وضعیت تایید : </span>
+
+                <span style="vertical-align: middle; margin-left: .5em; ">
+                    {{project.IsConfirmDescr}}</span>
+            </td> -->
+            <!-- <td>
+            <span class="ui-column-title">وضعیت استفاده : </span>
+
+            <span [className]="project.IsUsed?'customer-badge status-qualified' :'customer-badge status-unqualified'"  style="vertical-align: middle; margin-left: .5em">{{project.IsUsedDescr}}</span>
+        </td> -->
+
+
+            <!-- <td>
+                <span class="ui-column-title">وضعیت درخواست : </span>
+
+                <span style="vertical-align: middle; margin-left: .5em">{{project.StatusDescr}}</span>
+            </td> -->
+
+            <td (click)="setCurrentRow(project);">
+                <span class="ui-column-title">توضیحات : </span>
+
+                <span class="truncate" style="vertical-align: middle; margin-left: .5em">{{project.Descr}}</span>
+                <!-- ========================================== -->
+                <div *ngIf="CanAccess('Request_Set_Grade') && project.Grade<=2 && project.v2>6 && project.StatusId==2" style="float: left;">
+                <!-- <span (click)="SetGrade(project,1)" pTooltip="اول ، دوم ، سوم" class="notification">
+                    <span>1</span>
+                  </span>
+
+                  <span (click)="SetGrade(project,2)" pTooltip="چهارم ، پنجم ، ششم" href="#" class="notification">
+                    <span>2</span>
+                  </span> -->
+
+                  <span *ngIf="project.v2>=7 && project.v2<=9" (click)="SetGrade(project,3)" tooltipPosition="top" pTooltip="18  -  18.99" href="#" class="notification">
+                    <span>3</span>
+                  </span>
+
+                  <span *ngIf="project.v2>=7 && project.v2<=9" (click)="SetGrade(project,4)" tooltipPosition="top" pTooltip="19  -  20" href="#" class="notification">
+                    <span>4</span>
+                  </span>
+
+                  <span *ngIf="project.v2>=10 && project.v2<=12" (click)="SetGrade(project,5)" tooltipPosition="top"  pTooltip="17  -  18.49" href="#" class="notification">
+                    <span>5</span>
+                  </span>
+
+                  <span *ngIf="project.v2>=10 && project.v2<=12" (click)="SetGrade(project,6)" tooltipPosition="top"  pTooltip="18.5  -  20" href="#" class="notification">
+                    <span>6</span>
+                  </span>
+                </div>
+                  <!-- ========================================== -->
+
+            </td>
+
+
+            <td (click)="setCurrentRow(project);">
+                <span class="ui-column-title">مقطع : </span>
+
+                <span class="truncate" style="vertical-align: middle; margin-left: .5em">{{project.v1}}</span>
+            </td>
+
+
+
+            <td>
+                <span class="ui-column-title">نسب : </span>
+
+                <span style="vertical-align: middle; margin-left: .5em">{{project.FamilyFullName}}</span>
+            </td>
+
+
+
+
+
+            <td>
+                <span class="ui-column-title">تاریخ ارسال : </span>
+
+                <span *ngIf="project"
+                    style="vertical-align: middle; margin-left: .5em">{{project.RequestDate}}</span>
+            </td>
+            <td>
+                <button *ngIf="CanAccess('Request_View_Approve_Btn') && !(project.StatusId!=1)" pTooltip="عدم تایید "
+                    tooltipPosition="left" type="button" pButton class="ui-button-danger" icon="fa fa-times"
+                    
+                    (click)="setCurrentRow(project); displayMaximizable=true">
+                </button>
+                <button *ngIf="CanAccess('Request_View_Approve_Btn') && !(project.StatusId!=1)" pTooltip="تایید "
+                    tooltipPosition="left" type="button" pButton class="ui-button-success"
+                    (click)="showAcceptConfirm(project)" icon="fa fa-check"></button>
+
+                <!-- <button pTooltip="اطلاع رسانی با پیامک" tooltipPosition="left" (click)="showSendMessageConfirm(project)"
+                    type="button" pButton class="ui-button-primary" icon="fa fa-bell"></button> -->
+
+                    
+                    <button *ngIf="CanAccess('Request_delete')"  pTooltip="حذف درخواست" tooltipPosition="left" type="button" pButton
+            class="ui-button-danger" icon="fa fa-trash" (click)="showDeleteConfirm(project)" ></button>
+            </td>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8" style="text-align:right">اطلاعاتی یافت نشد</td>
+        </tr>
+    </ng-template>
+</p-table>
+<span *ngIf="selectedRows.length"> مجموع ردیفهای انتخاب شده : {{selectedRows.length}}</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <p-toast class="ui-rtl" dir="rtl" position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+
+
+
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="بله" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="انصراف" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast> 
+
+
+
+
+
+
+
+
+<!-- نمایش تصاویر آپلود شده با کلیک بر روی نوع درخواست -->
+<p-overlayPanel class="ui-rtl" dir="rtl" #Imagepanel [showCloseIcon]="true">
+    <div *ngFor="let item of attachmentItems" style="display: inline;">
+        <a href="{{attachmentPath}}{{item.DocName}}" target="_blank">
+            <img [alt]="CurrentRow.PrsnNo" src="{{attachmentPath}}{{item.DocName}}"
+                style="vertical-align: middle ;width: 50px; height: 50px; margin: 2px; border: #333 1px solid;" />
+        </a>
+    </div>
+</p-overlayPanel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog> -->
+
+
+
+
+
+<!-- دیالوگ تاییدیه عدم تایید و ثبت علت تایید -->
+<p-dialog *ngIf="CurrentRow" header="عدم تایید درخواست {{CurrentRow.RequestTypeTitle}} , [{{CurrentRow.FullName}}]  " [(visible)]="displayMaximizable"  [modal]="true"   [style]="{width: '50vw'}" [maximizable]="false" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+    <div class="p-grid">
+        <div class="p-col-12 p-md-12 mt-20">
+            <div class="ui-inputgroup">
+
+                <p-autoComplete [(ngModel)]="NonApprovalReason" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)" [size]="30"
+                    [minLength]="1" placeholder="علت عدم تایید" [dropdown]="true">
+                    <ng-template let-item pTemplate="item">
+                        <div class="ui-helper-clearfix" >
+                            <!-- <img src="assets/showcase/images/demo/car/{{brand}}.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/> -->
+                            <div style="text-align: right;margin:3px 3px 0 0">{{item}}</div>
+                        </div>
+                    </ng-template>
+                </p-autoComplete>
+            </div>
+        </div>
+    </div>
+
+    <p-footer>
+        <div class="ui-g ui-rtl">
+           
+                <button [disabled]='!NonApprovalReason' type="button" pButton (click)="NonApproval()" label="عدم تایید" class="ui-button-danger"></button>
+            
+                <button type="button" pButton (click)="onReject()" label="انصراف" class="ui-button-primary"></button>
+            
+        </div>
+    </p-footer>
+    
+
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
